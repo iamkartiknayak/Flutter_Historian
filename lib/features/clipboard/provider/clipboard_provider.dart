@@ -53,7 +53,7 @@ class ClipboardProvider extends ChangeNotifier with ClipboardListener {
 
       _clipboard.removeLast();
       _imageAutoDeleteIndex += 1;
-      NativeServices.runCommand('rm image$_imageAutoDeleteIndex.png');
+      NativeServices.runCommand('rm image$_imageAutoDeleteIndex.jpg');
     }
   }
 
@@ -197,7 +197,7 @@ class ClipboardProvider extends ChangeNotifier with ClipboardListener {
         if (_imageCount == 0 && imageExist) {
           _imageCount += 1;
           await NativeServices.saveTempImageFile(_imageCount);
-          addToClipboard(File('image$_imageCount.png'));
+          addToClipboard(File('image$_imageCount.jpg'));
           latestImageHash = tempImageHash;
         }
 
@@ -212,7 +212,7 @@ class ClipboardProvider extends ChangeNotifier with ClipboardListener {
         if (isNewImage && imageExist && !_skipImage && isNotSkippedItem) {
           _imageCount += 1;
           await NativeServices.saveTempImageFile(_imageCount);
-          addToClipboard(File('image$_imageCount.png'));
+          addToClipboard(File('image$_imageCount.jpg'));
           latestImageHash = tempImageHash;
         }
       } catch (e) {
@@ -226,7 +226,7 @@ class ClipboardProvider extends ChangeNotifier with ClipboardListener {
     if (clipboardLength > _itemCount) {
       for (int i = clipboardLength - _itemCount - 1; i >= 0; i--) {
         clipboard.removeAt(i);
-        NativeServices.runCommand('rm image$i.png');
+        NativeServices.runCommand('rm image$i.jpg');
       }
     }
   }
@@ -237,7 +237,7 @@ class ClipboardProvider extends ChangeNotifier with ClipboardListener {
       'Downloads',
     );
 
-    final tempFileName = '${const Uuid().v4()}.png';
+    final tempFileName = '${const Uuid().v4()}.jpg';
 
     final String? filePath = await FilePicker.platform.saveFile(
       dialogTitle: 'Save Your File to desired location',
