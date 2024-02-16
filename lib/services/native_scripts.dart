@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 @immutable
 sealed class NativeScripts {
   static const linuxClipImageShaCmd =
-      'xclip -selection clipboard -t image/png -o | sha1sum';
+      'xclip -selection clipboard -t image/png -o | convert - jpg:- | sha1sum';
 
   static const windowsClipImageShaCmd = '''
           Add-Type -AssemblyName System.Windows.Forms
@@ -23,7 +23,7 @@ sealed class NativeScripts {
           ''';
 
   static String getLinuxClipImageSaveCmd(int imageCount) =>
-      'xclip -selection clipboard -t image/png -o > image$imageCount.png';
+      'xclip -selection clipboard -t image/png -o | convert - jpg:- > image$imageCount.jpg';
 
   static String getWindowsClipImageSaveCmd(int imageCount) => '''
           Add-Type -AssemblyName System.Windows.Forms
@@ -45,8 +45,9 @@ sealed class NativeScripts {
           Write-Host "SHA-1 Hash: \$(\$sha1Hash.Hash)"
           ''';
 
+  // TODO: Fix it
   static String getLinuxSelectionToClipCmd(String imagePath) =>
-      'xclip -selection clipboard -t image/png -i $imagePath';
+      'xclip -selection clipboard -t image/jpeg -i $imagePath';
 
   static String getWindowsSelectionToClipCmd(String imagePath) => '''
               Add-Type -AssemblyName System.Windows.Forms
