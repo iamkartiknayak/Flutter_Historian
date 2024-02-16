@@ -81,8 +81,7 @@ class NativeServices {
     return sha1Regex.hasMatch(inputString);
   }
 
-  // returns sha1value of the image in clipboard if exist
-  // returns if error is empty to validate clip-image existance
+  // returns sha1value if image exist in clipboard and bool if sha1Value is valid
   static Future<(String, bool)> getClipboardImageStat() async {
     final cmd = isLinux
         ? NativeScripts.linuxClipImageShaCmd
